@@ -22,11 +22,11 @@ def komplett(user_input):
         laptops[name] = format_price
 
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
-    
-    return sorted_laptops
+    result = list(sorted_laptops.items())[0]
+    return {"Komplett.dk":result}
 
 def proshop(user_input):
-    url = "https://www.proshop.dk/?s=" + user_input
+    url = "https://www.proshop.dk/?pre=0&s=" + user_input + "&c=baerbar"
     r = requests.get(url)
     r.raise_for_status()
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
@@ -43,8 +43,8 @@ def proshop(user_input):
         laptops[name] = format_price
 
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
-    
-    return sorted_laptops
+    result = list(sorted_laptops.items())[0]
+    return {"Proshop.dk":result}
 
 def elgiganten(user_input):
     url = "https://www.elgiganten.dk/search?SearchTerm=" + user_input
@@ -63,19 +63,28 @@ def elgiganten(user_input):
 
 
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
-    
-    return sorted_laptops
+    result = list(sorted_laptops.items())[0]
+    return {"Elgiganten.dk":result}
 
 
 
-def start(user_input: str):
+def fetch_data(user_input: str):
     final_input = user_input.replace(' ', '+')
-    #komplett(final_input)
-    #print(komplett(final_input))
-    #print(proshop(final_input))
-    print(elgiganten(final_input))
+    komplettdata = (komplett(final_input))
+    proshopdata = (proshop(final_input))
+    elgigantendata = (elgiganten(final_input))
+
+    return [komplettdata, proshopdata, elgigantendata]
+
+def find_cheapest(laptop_data: list):
+    minimum = int(list(laptop_data[0].values())[0][1])
+    for idx, val in enumerate(laptop_data):
+        if ( int(list(val.values())[0][1]) < minimum):
+            minimum = int(list(val.values())[0][1])
+    return minimum
 
 
 if __name__ == "__main__":
     user_input = sys.argv[1:][0]
-    start(user_input)
+    laptop_data = fetch_data(user_input)
+    find_cheapest(laptop_data)

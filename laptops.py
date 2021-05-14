@@ -10,16 +10,12 @@ def komplett(user_input):
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     names = soup.select('div[class="text-content"] > h2')
     prices = soup.select('span[class="product-price-now"]')
-    lol = soup.select('div[class="text-container"] > a')
+    href = soup.select('a[class="product-link"]')
     laptops = {}
-    print(lol)
+
     for idx, val in enumerate(names):
-        laptops[names[idx].getText()] = prices[idx].getText()
-        
-        ''' if not(href[idx].getText().find('baerbar') == -1):
-            print("Yes")
-        else:
-            print("No") '''
+        if(str(href[idx]).find('baerbar') != -1): #Check om det er en laptop kategori
+            laptops[names[idx].getText()] = prices[idx].getText()
 
     regex_prices = re.compile(r'([\w.]+)')
     for name in laptops.keys():
@@ -27,6 +23,12 @@ def komplett(user_input):
         laptops[name] = format_price
 
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
+    
+    #Fejlhåndtering hvis laptop ikke findes
+    if not list(sorted_laptops.items()):
+        return {"komplett.dk": ("Ikke fundet","0")}
+    
+    #Laptop fundet
     result = list(sorted_laptops.items())[0]
     return {"Komplett.dk":result}
 
@@ -48,6 +50,12 @@ def proshop(user_input):
         laptops[name] = format_price
 
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
+    
+    #Fejlhåndtering hvis laptop ikke findes
+    if not list(sorted_laptops.items()):
+        return {"proshop.dk": ("Ikke fundet","0")}
+    
+    #Laptop fundet
     result = list(sorted_laptops.items())[0]
     return {"Proshop.dk":result}
 
@@ -58,16 +66,23 @@ def elgiganten(user_input):
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     names = soup.select('span[class="table-cell"]')
     prices = soup.select('div[class="product-price"]')
+    #href = soup.select('a[class="product-name"]')
     laptops = {}
     regex_prices = re.compile(r'([0-9]+)')
-    
+    #print(href)
+
     for idx, val in enumerate(names):
-        if not((prices[idx].get_text() == '\n\xa0\n\xa0\n')):
+        if not((prices[idx].get_text() == '\n\xa0\n\xa0\n')): # and str(href[idx]).find('baerbar') != -1):
             price = prices[idx].get_text(strip=True).replace('\xa0', '')
             laptops[names[idx].get_text()] = regex_prices.findall(price)[0]
 
-
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
+
+    #Fejlhåndtering hvis laptop ikke findes
+    if not list(sorted_laptops.items()):
+        return {"Elgiganten.dk": ("Ikke fundet","0")}
+
+    #Laptop fundet
     result = list(sorted_laptops.items())[0]
     return {"Elgiganten.dk":result}
 
@@ -83,10 +98,12 @@ def fetch_data(user_input: str):
 
 def find_cheapest(laptop_data: list):
     minimum = int(list(laptop_data[0].values())[0][1])
+    result = list(laptop_data[0].values())[0]
     for idx, val in enumerate(laptop_data):
-        if ( int(list(val.values())[0][1]) < minimum):
-            minimum = int(list(val.values())[0][1])
-    return minimum
+        value = int(list(val.values())[0][1])
+        if ( value < minimum and value != 0 ):
+            result = list(val.items())[0]
+    return result
 
 
 if __name__ == "__main__":

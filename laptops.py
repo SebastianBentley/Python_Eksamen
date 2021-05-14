@@ -10,11 +10,16 @@ def komplett(user_input):
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     names = soup.select('div[class="text-content"] > h2')
     prices = soup.select('span[class="product-price-now"]')
-
+    lol = soup.select('div[class="text-container"] > a')
     laptops = {}
-
+    print(lol)
     for idx, val in enumerate(names):
         laptops[names[idx].getText()] = prices[idx].getText()
+        
+        ''' if not(href[idx].getText().find('baerbar') == -1):
+            print("Yes")
+        else:
+            print("No") '''
 
     regex_prices = re.compile(r'([\w.]+)')
     for name in laptops.keys():
@@ -87,4 +92,4 @@ def find_cheapest(laptop_data: list):
 if __name__ == "__main__":
     user_input = sys.argv[1:][0]
     laptop_data = fetch_data(user_input)
-    find_cheapest(laptop_data)
+    print(find_cheapest(laptop_data))

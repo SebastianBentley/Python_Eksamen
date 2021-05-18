@@ -66,13 +66,12 @@ def elgiganten(user_input):
     soup = bs4.BeautifulSoup(r.text, 'html.parser')
     names = soup.select('span[class="table-cell"]')
     prices = soup.select('div[class="product-price"]')
-    #href = soup.select('a[class="product-name"]')
+    href = soup.select('a[class="product-name"]')
     laptops = {}
     regex_prices = re.compile(r'([0-9]+)')
-    #print(href)
 
     for idx, val in enumerate(names):
-        if not((prices[idx].get_text() == '\n\xa0\n\xa0\n')): # and str(href[idx]).find('baerbar') != -1):
+        if ((prices[idx].get_text() != '\n\xa0\n\xa0\n') and str(href[idx]).find('barbar') != -1):
             price = prices[idx].get_text(strip=True).replace('\xa0', '')
             laptops[names[idx].get_text()] = regex_prices.findall(price)[0]
 

@@ -1,1 +1,29 @@
-tilføj kun bærbare til fetch af items fra websites
+Group name:
+Powerpuff Pigerne & Professor Utonium
+
+Members:
+Sebastian Steen Lundby Hansen (cph-sh499@cphbusiness.dk) 
+Sebastian James Bentley (cph-sb287@cphbusiness.dk)
+Michael Christian Ibsen(cph-mi93@cphbusiness.dk)
+Rasmus Grønbek (cph-rg86@cphbusiness.dk)
+
+Description of data:
+Description of laptops.
+Link: https://github.com/37Degrees/DataSets/blob/master/laptops.csv
+Description of problem:
+Part 1 (webscraping, regex)
+1.1 Webscrape a specific laptop from different websites,
+1.2 Use regex to save all information on the cheapest one found.
+
+Part 2 - Main challenge - (csv with pandas, clustering with meanshift)
+2.1 Load a laptops.csv file, and save to a DataFrame.
+2.2 Show a graph of the connection between brand and price of laptops
+2.3 Prepare the data for clustering purposes.
+2.4 Get the different clusters, plot them, and save the data in a seperate file.
+
+Part 3
+3.1 Determine which cluster, the laptop found in part 1 belongs to.
+3.2 present on a diagram, top 5 laptops in the same cluster/category, and their price.
+
+Part 4(Flask)
+4.1 Use Flask to make an interface, where the user can search a laptop, and get the top 5 results laptops in the same cluster/category.

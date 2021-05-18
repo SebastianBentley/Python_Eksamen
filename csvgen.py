@@ -2,6 +2,8 @@ import bs4
 import requests
 import sys
 import re
+import csv
+import platform
 
 
 def get_laptops(page_number:int):
@@ -23,12 +25,20 @@ def get_laptops(page_number:int):
 
     sorted_laptops = {k: v for k, v in sorted(laptops.items(), key=lambda item: item[1])}
 
-    return list(sorted_laptops)
+    return sorted_laptops
 
-def generate_csv():
+def generate_csv(output_file, dic):
+    if platform.system() == 'Windows':
+        newline=''
+    else:
+        newline=None
+    with open(output_file, 'a', newline=newline) as f:
+        for value in dic.keys():
+            f.write(value + ",")
+            f.write(dic[value] + "\n")
 
-    return True
-
-    
+           
 if __name__ == "__main__":
-    print(get_laptops())
+    file = "laptops.csv"
+    for x in range(1, 54):
+        #generate_csv(file, get_laptops(x))

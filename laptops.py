@@ -92,8 +92,8 @@ def fetch_data(user_input: str):
     komplettdata = (komplett(final_input))
     proshopdata = (proshop(final_input))
     elgigantendata = (elgiganten(final_input))
-
-    return [komplettdata, proshopdata, elgigantendata]
+    cheapest = find_cheapest([komplettdata, proshopdata, elgigantendata])
+    return cheapest
 
 def find_cheapest(laptop_data: list):
     minimum = int(list(laptop_data[0].values())[0][1])
@@ -107,5 +107,4 @@ def find_cheapest(laptop_data: list):
 
 if __name__ == "__main__":
     user_input = sys.argv[1:][0]
-    laptop_data = fetch_data(user_input)
-    print(find_cheapest(laptop_data))
+    print(fetch_data(user_input))

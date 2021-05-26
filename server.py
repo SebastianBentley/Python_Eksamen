@@ -1,30 +1,28 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, Response, render_template
 import subprocess
+import laptops as lp
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def index():
     return render_template('index.html')
 
+    
 
-@app.route("/echo", methods=['POST'])
-def echo():
-    command = request.form['text']
-    subprocess.call([command])
-    #return request.form['text'] + " Command executed via subprocess"
-    return index()
-
-@app.route("/calc", methods=['POST'])
+@app.route("/laptop", methods=['POST'])
 def calc():
-    subprocess.call('calc.exe')
-    return index()
+    #subprocess.call('calc.exe')
+    #return index()
+    
+    laptop = request.form['laptop']
+    result = lp.fetch_data(laptop)
+    return "<h1>hejhej</h1>"+str(result)
 
-@app.route("/test", methods=['POST'])
+@app.route("/laptoptest", methods=['POST'])
 def test():
     while True:
-        subprocess.call('calc.exe')
+        subprocess.call('calc.exelaptop')
 
 if __name__ == "__main__":
     app.run(debug='True')

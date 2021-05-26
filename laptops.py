@@ -90,9 +90,9 @@ def elgiganten(user_input):
 def fetch_data(user_input: str):
     final_input = user_input.replace(' ', '+')
     komplettdata = (komplett(final_input))
-    proshopdata = (proshop(final_input))
+    #proshopdata = (proshop(final_input))
     elgigantendata = (elgiganten(final_input))
-    cheapest = find_cheapest([komplettdata, proshopdata, elgigantendata])
+    cheapest = find_cheapest([komplettdata, elgigantendata])
     return cheapest
 
 def find_cheapest(laptop_data: list):

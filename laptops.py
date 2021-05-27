@@ -110,6 +110,8 @@ def find_cheapest(laptop_data: list):
             result = list(val.items())[0]
     return result
 
+#def find_image():
+
 
 if __name__ == "__main__":
     user_input = sys.argv[1:][0]

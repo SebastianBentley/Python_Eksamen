@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Remote command UI</title>
+    <title>Tech Heaven</title>
 </head>
-<body>
+
+<body style="text-align: center; background-color:cadetblue">
 
     <div>
-        <div>
+        <div style="margin-top: 10%;">
+            <h1>Søg på bærbar</h1>
             <form action="/laptop" method="POST">
                 <input name="laptop">
-                <input type="submit" value="Echo">
+                <input type="submit" value="Søg">
                 <p name="res"></p>
             </form>
+
         </div>
+        <h2 style="margin-top: 5%;">Gennemsnitspris på mærker</h2>
+        <img src="{{url_for('static', filename='barchart.jpg')}}" style="width: 900px; height: 600px;" />
         <div>
-        </div> 
+        </div>
     </div>
 </body>
+
 </html>

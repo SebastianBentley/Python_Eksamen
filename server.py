@@ -1,9 +1,9 @@
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, url_for
 import subprocess
 import laptops as lp
 import close_five as c5
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def index():
@@ -27,10 +27,12 @@ def calc():
 
     names = list(close5['name'])
     prices = list(close5['price'])
-    for idx, val in enumerate(names):
-        final_string += "<li>" + str(names[idx]) + ". Price: " + str(prices[idx]) + "dkk.</li>"
+    if (price != 0.0):
+        for idx, val in enumerate(names):
+            final_string += "<li>" + str(names[idx]) + ". Price: " + str(prices[idx]) + "dkk.</li>"
 
-    return "<h1>Found pc: {}<br> Price: {}dkk.<br> Company: {}</h1><h2><ul>{}</ul></h2>".format(name, price, company, final_string)
+    return "<body style=\"text-align: center; background-color:cadetblue;\">" + "<h1>Found pc: {}<br> Price: {} dkk.<br> Company: {}</h1><br><h2><u>Nær denne prisklasse</u></h2><h2><ol>{}</ol></h2><button onClick=\"window.history.back();\">Refresh Page</button></body>".format(name, price, company, final_string)
+    
 
 if __name__ == "__main__":
     app.run(debug='True')

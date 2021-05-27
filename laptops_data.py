@@ -22,7 +22,9 @@ def load_data():
 
 def make_bar_chart(sorted_dict):
     plt.bar(sorted_dict.keys(), sorted_dict.values())
-    plt.xticks(rotation=90)
+    fig1=plt.gcf()
+    plt.xticks(rotation=28.5)
+    fig1.savefig("barchart.png", dpi=400)
     plt.figure(figsize=(20,10))
     plt.show()
 
@@ -30,6 +32,3 @@ if __name__ == "__main__":
     dict = load_data()
     make_bar_chart(dict)
     #user_input = sys.argv[1:][0]
-
-
-

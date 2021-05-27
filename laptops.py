@@ -12,9 +12,15 @@ def komplett(user_input):
     prices = soup.select('span[class="product-price-now"]')
     href = soup.select('a[class="product-link"]')
     laptops = {}
+    new_href = list()
+
+    for idx, val in enumerate(href):
+        if((idx%2)==0):
+            new_href.append(href[idx])
+
 
     for idx, val in enumerate(names):
-        if(str(href[idx]).find('baerbar') != -1): #Check om det er en laptop kategori
+        if('baerbar' in str(new_href[idx])):
             laptops[names[idx].getText()] = prices[idx].getText()
 
     regex_prices = re.compile(r'([\w.]+)')
@@ -26,7 +32,7 @@ def komplett(user_input):
     
     #Fejlhåndtering hvis laptop ikke findes
     if not list(sorted_laptops.items()):
-        return {"komplett.dk": ("Ikke fundet","0")}
+        return {"Ikke fundet": ("Ikke fundet","0")}
     
     #Laptop fundet
     result = list(sorted_laptops.items())[0]
@@ -53,7 +59,7 @@ def proshop(user_input):
     
     #Fejlhåndtering hvis laptop ikke findes
     if not list(sorted_laptops.items()):
-        return {"proshop.dk": ("Ikke fundet","0")}
+        return {"Ikke fundet": ("Ikke fundet","0")}
     
     #Laptop fundet
     result = list(sorted_laptops.items())[0]
@@ -79,7 +85,7 @@ def elgiganten(user_input):
 
     #Fejlhåndtering hvis laptop ikke findes
     if not list(sorted_laptops.items()):
-        return {"Elgiganten.dk": ("Ikke fundet","0")}
+        return {"Ikke fundet": ("Ikke fundet","0")}
 
     #Laptop fundet
     result = list(sorted_laptops.items())[0]
@@ -97,7 +103,7 @@ def fetch_data(user_input: str):
 
 def find_cheapest(laptop_data: list):
     minimum = int(list(laptop_data[0].values())[0][1])
-    result = list(laptop_data[0].values())[0]
+    result = list(laptop_data[0].items())[0]
     for idx, val in enumerate(laptop_data):
         value = int(list(val.values())[0][1])
         if ( value < minimum and value != 0 ):
@@ -107,4 +113,3 @@ def find_cheapest(laptop_data: list):
 
 if __name__ == "__main__":
     user_input = sys.argv[1:][0]
-    print(fetch_data(user_input))

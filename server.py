@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, render_template
 import subprocess
 import laptops as lp
+import close_five as c5
 
 app = Flask(__name__)
 
@@ -17,12 +18,19 @@ def calc():
     
     laptop = request.form['laptop']
     result = lp.fetch_data(laptop)
-    return "<h1>hejhej</h1>"+str(result)
+    print(result)
+    name = result[1][0]
+    company = result[0]
+    price = float(result[1][1])
+    close5 = c5.get_close_five(name, price)
+    final_string = ""
 
-@app.route("/laptoptest", methods=['POST'])
-def test():
-    while True:
-        subprocess.call('calc.exelaptop')
+    names = list(close5['name'])
+    prices = list(close5['price'])
+    for idx, val in enumerate(names):
+        final_string += "<li>" + str(names[idx]) + ". Price: " + str(prices[idx]) + "dkk.</li>"
+
+    return "<h1>Found pc: {}<br> Price: {}dkk.<br> Company: {}</h1><h2><ul>{}</ul></h2>".format(name, price, company, final_string)
 
 if __name__ == "__main__":
     app.run(debug='True')

@@ -18,11 +18,12 @@ def komplett(user_input):
         if((idx%2)==0):
             new_href.append(href[idx])
 
-
+    #lav bærbar dictionary med navn og pris
     for idx, val in enumerate(names):
         if('baerbar' in str(new_href[idx])):
             laptops[names[idx].getText()] = prices[idx].getText()
 
+    #Formatér prisen med regex
     regex_prices = re.compile(r'([\w.]+)')
     for name in laptops.keys():
         format_price = (regex_prices.findall(laptops.get(name))[0]).replace('.','')
@@ -91,7 +92,18 @@ def elgiganten(user_input):
     result = list(sorted_laptops.items())[0]
     return {"Elgiganten.dk":result}
 
-
+def find_img(user_input):
+    url = "https://www.komplett.dk/search?q=" + user_input
+    r = requests.get(url)
+    r.raise_for_status()
+    soup = bs4.BeautifulSoup(r.text, 'html.parser')
+    img = soup.select('img[class="product-image"]')
+    if (len(img) != 0):
+        result = "https://www.komplett.dk"+str(img[0].get('src'))
+        print(result)
+    else:
+        result = "/static/no_picture.png"
+    return result
 
 def fetch_data(user_input: str):
     final_input = user_input.replace(' ', '+')
@@ -109,8 +121,6 @@ def find_cheapest(laptop_data: list):
         if ( value < minimum and value != 0 ):
             result = list(val.items())[0]
     return result
-
-#def find_image():
 
 
 if __name__ == "__main__":

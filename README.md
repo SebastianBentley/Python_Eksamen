@@ -1,7 +1,6 @@
 ## Project name:
 Laptop search
 
-
 ### Short description:
 In this application, a user can input a specific laptop or brand to check what website, compared between 3 different sites, has the best price available. The user is also given a list of laptops near the searched laptop's price range. The laptop is searched using BeautifulSoup, and the list of alternative laptops is found by clustering of CSV data. This means, that the results will be the closest in price, in the same cluster.
 
@@ -50,3 +49,10 @@ Part 3
 
 Part 4(Flask)
 * 4.1 Use Flask to make an interface, where the user can search a laptop, and get the top 5 results laptops in the same cluster/category.
+
+
+### Made by:
+* Sebastian Steen Lundby Hansen (cph-sh499) 
+* Sebastian James Bentley (cph-sb287)
+* Michael Christian Ibsen(cph-mi93)
+* Rasmus Grønbek (cph-rg86)

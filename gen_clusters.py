@@ -32,7 +32,7 @@ def create_clusters():
     laptop_cluster_data['Counts'] = pd.Series(laptop_data.groupby(['cluster_group']).size())
 
     #Save the new dataset with clusters to a file
-    laptop_data.to_csv("laptop_csv_data.csv")
+    laptop_data.to_csv("laptop_cluster_data.csv")
     #Save the cluster groups to a file
     laptop_cluster_data.to_csv("clusters.csv")
 

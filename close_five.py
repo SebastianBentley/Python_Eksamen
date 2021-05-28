@@ -3,7 +3,7 @@ import pandas as pd
 
 def get_close_five(name, price):
     #filepaths
-    filepath = 'laptop_csv_data.csv'
+    filepath = 'laptop_cluster_data.csv'
     filepath2 = 'clusters.csv'
     #load the csv files
     laptops = pd.read_csv(filepath)

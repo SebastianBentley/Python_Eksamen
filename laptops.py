@@ -100,7 +100,6 @@ def find_img(user_input):
     img = soup.select('img[class="product-image"]')
     if (len(img) != 0):
         result = "https://www.komplett.dk"+str(img[0].get('src'))
-        print(result)
     else:
         result = "/static/no_picture.png"
     return result
@@ -125,3 +124,4 @@ def find_cheapest(laptop_data: list):
 
 if __name__ == "__main__":
     user_input = sys.argv[1:][0]
+    print(fetch_data(user_input))

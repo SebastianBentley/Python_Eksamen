@@ -13,12 +13,8 @@ def index():
 
 @app.route("/laptop", methods=['POST'])
 def calc():
-    #subprocess.call('calc.exe')
-    #return index()
-    
     laptop = request.form['laptop']
     result = lp.fetch_data(laptop)
-    print(result)
     name = result[1][0]
     company = result[0]
     imgsource = lp.find_img(name)

@@ -31,6 +31,7 @@ Everything we planned to do is done, as listed in the general tasks.
 * Webscraping
 * Clustering with meanshift
 * Handling DataFrames with Pandas
+* Make an interface using Flask
 
 ### General tasks:
 Part 1 (webscraping, regex)
